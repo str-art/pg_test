@@ -1,5 +1,7 @@
 const path = require("path");
 
+process.env.BASE_DIR = __dirname;
+
 const libPath = path.join(__dirname, "lib");
 
 require(path.join(__dirname, "cleanup"));
@@ -17,6 +19,7 @@ if (!process.env.NODE_ENV) {
   try {
     const app = new App(config);
     await app.connectToDB();
+    await app.start();
   } catch (error) {
     console.error(error);
     cleanUpExit();
