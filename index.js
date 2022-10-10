@@ -17,7 +17,6 @@ if (!process.env.NODE_ENV) {
   try {
     const app = new App(config);
     await app.connectToDB();
-    await app.startServer();
   } catch (error) {
     console.error(error);
     cleanUpExit();
