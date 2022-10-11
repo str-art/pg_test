@@ -22,7 +22,15 @@ class FileController extends Controller {
       throw Error("Not Found: File doesnt exist");
     }
 
-    const file = await this.services.FileService.getFile(idFile);
+    let file;
+    try {
+      file = await this.services.FileService.getFile(idFile);
+    } catch (err) {
+      if (err.message.includes("ENOENT")) {
+        throw Error("Not Found: File doesnt exist");
+      }
+      throw err;
+    }
 
     if (!file) {
       throw Error("Not Found: File doesnt exist");
