@@ -12,6 +12,7 @@ class Product extends Entity {
         isPK: true,
         default: `nextval('UUID')`,
       },
+      name: { type: "varchar(250)" },
       price: { type: "integer" },
       quantity: { type: "integer", default: 0 },
     };

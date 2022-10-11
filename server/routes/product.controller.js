@@ -13,9 +13,9 @@ class ProductController extends Controller {
 
     this.dtos = dtos;
 
-    this.use("get", "list", this.checkPage);
+    this.use("get", "", this.checkPage);
 
-    this.on("get", "list", this.getList);
+    this.on("get", "", this.getList);
 
     this.use("post", "", this.checkDto);
 
