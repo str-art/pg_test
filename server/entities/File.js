@@ -6,7 +6,7 @@ class File extends Entity {
     const name = "File";
     const scheme = {
       id: { type: "integer", isPK: true, default: `nextval('UUID')` },
-      name: { type: "varchar(250)", unique: true, nullable: false },
+      name: { type: "varchar(250)", nullable: false },
       extension: { type: "varchar(10)", nullable: false },
       path: { type: "varchar(250)", nullable: false },
       ref: { type: "integer", nullable: false },

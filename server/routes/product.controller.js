@@ -34,6 +34,16 @@ class ProductController extends Controller {
     this.use("delete", ":idProduct", this.checkProductId);
 
     this.on("delete", ":idProduct", this.deleteProduct);
+
+    this.use("post", ":idProduct/file", this.checkProductId);
+
+    this.upload("post", ":idProduct/file", [{ name: "product", maxCount: 1 }]);
+
+    this.on("post", ":idProduct/file", this.loadFile);
+
+    this.use("get", ":idProduct/file/list", this.checkProductId);
+
+    this.on("get", ":idProduct/file/list", this.getProductFiles);
   }
 
   checkPage(req) {
@@ -101,6 +111,20 @@ class ProductController extends Controller {
   async deleteProduct({ body }) {
     const { product } = body;
     await this.services.ProductService.delete(product.id);
+  }
+
+  async loadFile({ body, files }) {
+    const { product } = body;
+
+    await this.services.FileService.uploadFiles(product.id, files.product);
+  }
+
+  async getProductFiles({ body }) {
+    const { product } = body;
+
+    const files = await this.services.FileService.getFileIds(product.id);
+
+    return files;
   }
 }
 

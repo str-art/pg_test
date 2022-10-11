@@ -29,6 +29,8 @@ class ProductService extends Service {
     }
 
     await this.database.entities.Product.delete({ id: idProduct });
+
+    await App.emit("deleteFiles", idProduct);
   }
 
   async update(idProduct, updates) {
@@ -41,10 +43,6 @@ class ProductService extends Service {
   async getProduct(selector = {}) {
     return this.database.entities.Product.select(selector);
   }
-
-  async addImage() {}
-
-  async getImages() {}
 }
 
 module.exports = ProductService;
