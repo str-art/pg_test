@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    container_name: database
+    ports:
+      - 5432:${DATABASE_PORT}
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_DB=${DATABASE}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    restart: always
+    command: ["postgres", "-c", "log_statement=all"]
+  server:
+    build: .
+    container_name: server
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_PORT=${DATABASE_POST}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE=${DATABASE}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - SERVER_PORT=${APP_PORT}
+    depends_on:
+      - db
