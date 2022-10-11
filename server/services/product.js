@@ -1,4 +1,5 @@
-const Service = require("../../lib/Service");
+const path = require("path");
+const Service = require(path.join(process.env.BASE_DIR, "lib", "Service"));
 
 class ProductService extends Service {
   constructor(database) {
@@ -22,9 +23,24 @@ class ProductService extends Service {
     );
   }
 
-  async delete() {}
+  async delete(idProduct) {
+    if (!idProduct) {
+      throw Error("Id is not defined");
+    }
 
-  async update() {}
+    await this.database.entities.Product.delete({ id: idProduct });
+  }
+
+  async update(idProduct, updates) {
+    if (!idProduct) {
+      throw Error("Id is not defiened");
+    }
+    return this.database.entities.Product.update({ id: idProduct }, updates);
+  }
+
+  async getProduct(selector = {}) {
+    return this.database.entities.Product.select(selector);
+  }
 
   async addImage() {}
 

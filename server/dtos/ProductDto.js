@@ -1,4 +1,5 @@
-const Dto = require("../../lib/Dto");
+const path = require("path");
+const Dto = require(path.join(process.env.BASE_DIR, "lib", "Dto"));
 
 class ProductDto extends Dto {
   constructor() {

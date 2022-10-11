@@ -1,4 +1,5 @@
-const Entity = require("../../lib/Entity");
+const path = require("path");
+const Entity = require(path.join(process.env.BASE_DIR, "lib", "Entity"));
 
 class Product extends Entity {
   constructor(database) {
